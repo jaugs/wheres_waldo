@@ -1,0 +1,31 @@
+
+.selectionMenu {
+    display: flex;
+    gap:10px;
+}
+
+.selectionCircle{
+    border: 5px dashed red;
+    border-radius: 15px;
+    color: blue;
+    z-index: '1';
+    background-color: rgba(0, 0, 200, 0.2)
+}
+
+.charList {
+    padding: 5px;
+    background-color: #f7f7f7;
+    list-style: none;
+    border: 2px solid red;
+    border-radius: 20px;
+    
+}
+
+.charList li {
+    color: blue;
+}
+
+.charList li:hover {
+    background-color: #93c5fd;
+    cursor: pointer;
+}

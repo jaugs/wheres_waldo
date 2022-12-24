@@ -17,7 +17,7 @@ function findPosition(image) {
       posX += image.offsetLeft;
       posY += image.offsetTop;
     }
-      console.log(posX, posY)
+      //console.log(posX, posY)
       return [ posX, posY ];
     }
     // else {
@@ -30,7 +30,7 @@ function getCoordinates(e) {
     let yPos = 0;
     let image = document.getElementById('skiPic');
     let imagePos = findPosition(image);
-    if (!e) {e = window.event;}
+    //if (!e) {e = window.event;}
     if (e.pageX || e.pageY) {
         xPos = e.pageX;
         yPos = e.pageY;
@@ -40,9 +40,14 @@ function getCoordinates(e) {
     }
     xPos = xPos - imagePos[0];
     yPos = yPos - imagePos[1];
-    console.log(xPos);
-    console.log(yPos);
+    //console.log(xPos);
+   // console.log(yPos);
     return [xPos, yPos]
+}
+
+function handleMove(e) {
+    let clickCoords = getCoordinates(e);
+    console.log(clickCoords[0], clickCoords[1])
 }
 
 
@@ -67,7 +72,7 @@ function startGame() {
             />) : (null)}
             <button onClick={startGame} className="startButton">Start!</button>
             <img src={props.level.url} alt="waldoSkiing" id="skiPic" 
-                className="waldoPic" onClick={handleClick}></img>
+                className="waldoPic" onDrag={handleMove} onClick={handleClick}></img>
 
 
         </div>
