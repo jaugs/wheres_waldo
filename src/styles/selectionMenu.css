@@ -29,3 +29,7 @@
     background-color: #93c5fd;
     cursor: pointer;
 }
+
+.guess {
+   background-color: blue;
+}

@@ -50,13 +50,22 @@ function handleMove(e) {
     console.log(clickCoords[0], clickCoords[1])
 }
 
+function getGuessCoords() {
+   // let element = document.getElementById('guessCircle')
+   
+    //console.log(guessCoords)
+}
 
 function handleClick(e) {
   // console.log(e.target.getBoundingClientRect())
    // console.log(e.nativeEvent);
    let clickCoords = getCoordinates(e);
+   console.log(clickCoords)
+   
    setCoords(clickCoords)
    setContextMenu(true)
+    //let guessCoords = getGuessCoords()
+
 }
 
 function startGame() {
