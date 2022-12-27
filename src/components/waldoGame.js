@@ -47,7 +47,9 @@ function getCoordinates(e) {
 
 function handleMove(e) {
     let clickCoords = getCoordinates(e);
+   // let newCoords = e.getBoundingClientRect()
     console.log(clickCoords[0], clickCoords[1])
+    //console.log(newCoords.x, newCoords.y)
 }
 
 function getGuessCoords() {

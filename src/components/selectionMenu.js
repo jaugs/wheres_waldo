@@ -33,14 +33,53 @@ function SelectionMenu(props) {
     // }
 
     function handleClick(character) {
+
+      const waldoCoordsX = []
+      const waldoCoordsY = []
+        for (let i = 962; i < 1025; i++) {
+            waldoCoordsX.push(i)
+        }
+        for (let k = 513; k < 588; k++) {
+            waldoCoordsY.push(k)
+        }
         //check if guess is correct logic
         //alert('guess')
         let element = document.getElementById('guessCircle')
-        let guessCoords = element.getBoundingClientRect()1 
-            console.log(guessCoords.x)
+        let guessCoords = element.getBoundingClientRect()
+            console.log(guessCoords)
+        let guessRangeY = []
+        let guessRangeX = []
+        for (let i = guessCoords.y; i < guessCoords.bottom; i++) {
+            guessRangeY.push(i -50)
+        }
+        for (let i = guessCoords.x; i < guessCoords.right; i++) {
+            guessRangeX.push(i)
+        }
+       // console.log(guessRangeX)
+       // console.log(guessRangeY)
+
+        const yMatch = waldoCoordsY.filter(element => guessRangeY.includes(element));
+        const xMatch = waldoCoordsX.filter(element => guessRangeX.includes(element));
+        console.log(xMatch.length, yMatch.length)
+        console.log(xMatch, yMatch)
+        // if (parseInt(xMatch.lengh) !== 0) {
+        //     console.log(xMatch.length)
+        //     if (yMatch.length !== 0) {
+        //          alert('eeeee') }
+        // }
+        if (xMatch && xMatch.length) {
+            if (yMatch && yMatch.length) {
+                prompt('eeeee')
+            }
+        }
+    
+    
     }
-//  y = 358 - 300 
-//  x = 557 - 591
+           
+       // console.log(yMatch, xMatch)
+    
+// x= 962 1024 left right
+//y = 587 513 bottom top
 
     return(
         <div className="selectionMenu" style={divStyle}>
