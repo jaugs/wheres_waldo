@@ -63,7 +63,7 @@ function SelectionMenu(props) {
         console.log(xMatch.length, yMatch.length)
         console.log(xMatch, yMatch)
         // if (parseInt(xMatch.lengh) !== 0) {
-        //     console.log(xMatch.length)
+        //     console.log(xMatch.length)s
         //     if (yMatch.length !== 0) {
         //          alert('eeeee') }
         // }
