@@ -11,7 +11,7 @@ import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import {useState, useEffect} from 'react'
 //import { query, orderBy, onSnapshot} from "firebase/firestore"
 import WaldoGame from './components/waldoGame';
-
+import Header from './components/header';
 
 
 
@@ -21,6 +21,9 @@ function App() {
       level: '',
       url: ''
   })
+
+  const [timer, setTimer] = useState(0)
+  const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
 
   
@@ -70,6 +73,13 @@ useEffect(() => {
   getImage();
 }, []);
 
+useEffect(() => {
+  if (timerToggle) {
+    setTimeout(() => {setTimer(timer + 1)}, '1000')
+  }
+
+}, [timer, timerToggle]);
+
 async function getImage() {
  // const imgRef = query(collection(storage, 'images'))
  const storageRef = ref(storage);
@@ -90,20 +100,16 @@ async function getImage() {
 }
 
   return (
+    
  <Router basename="/">
     <div className="App">
-    <div className='header'>
-      <h2>Photo Tag App</h2>
-      
-      <Link 
-        to="/level"
-        className='button'> level
-        </Link>
-        <Link 
-        to="/"
-        className='button'> Home
-        </Link>
-        </div>
+    <Header 
+      timer = {timer}
+      setTimer = {setTimer}
+      timerToggle = {timerToggle}
+      setTimerToggle = {setTimerToggle}
+    />
+   
      <Routes> 
 
      <Route 
