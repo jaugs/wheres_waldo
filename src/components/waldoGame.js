@@ -1,72 +1,52 @@
 import { useEffect, useState } from 'react';
 import '../styles/waldoGame.css'
-import SelectionMenu from './selectionMenu'
+import {SelectionMenu} from './selectionMenu'
+import { TargetBox } from './selectionMenu';
+
 function WaldoGame(props) {
 
    const [contextMenu, setContextMenu] = useState(false)
-   const [coords, setCoords] = useState([])
+   const [coords, setCoords] = useState({
+    x: 0,
+    y: 0
+   })
+   const [menuCoords, setMenuCoords] = useState({
+    x: 0,
+    y: 0
+   })
    // useEffect()
 
 
 
-function findPosition(image) {
-//     if(typeof( image.offsetParent ) != "undefined")
-//   {
-    for(var posX = 0, posY = 0; image; image = image.offsetParent)
-    {
-      posX += image.offsetLeft;
-      posY += image.offsetTop;
-    }
-      //console.log(posX, posY)
-      return [ posX, posY ];
-    }
-    // else {
-    //   console.log(image.x, image.y)
-    //   return [ image.x, image.y ]; }
-//}
+
 
 function getCoordinates(e) {
-    let xPos = 0;
-    let yPos = 0;
-    let image = document.getElementById('skiPic');
-    let imagePos = findPosition(image);
-    //if (!e) {e = window.event;}
-    if (e.pageX || e.pageY) {
-        xPos = e.pageX;
-        yPos = e.pageY;
-    } else if (e.clientX || e.clientY) {
-        xPos = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        yPos = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-    xPos = xPos - imagePos[0];
-    yPos = yPos - imagePos[1];
-    //console.log(xPos);
-   // console.log(yPos);
-    return [xPos, yPos]
+  const { width, height } =  e.target.getBoundingClientRect();
+  const { offsetX, offsetY } = e.nativeEvent;
+
+  const mouseX = Math.round((offsetX / width) * 1000);
+  const mouseY = Math.round((offsetY / height) * 1000);
+  const { pageX: menuX, pageY: menuY } = e;
+  const menuCoords = {
+    x: menuX,
+    y: menuY,
+  };
+
+  const mouseCoords = {
+    x: mouseX,
+    y: mouseY,
+  };
+
+  setCoords(mouseCoords);
+  setMenuCoords(menuCoords);
 }
 
-function handleMove(e) {
-    let clickCoords = getCoordinates(e);
-   // let newCoords = e.getBoundingClientRect()
-    console.log(clickCoords[0], clickCoords[1])
-    //console.log(newCoords.x, newCoords.y)
-}
 
-function getGuessCoords() {
-   // let element = document.getElementById('guessCircle')
-   
-    //console.log(guessCoords)
-}
 
 function handleClick(e) {
-  // console.log(e.target.getBoundingClientRect())
-   // console.log(e.nativeEvent);
-   let clickCoords = getCoordinates(e);
-   console.log(clickCoords)
-   
-   setCoords(clickCoords)
+ 
+  getCoordinates(e);
    setContextMenu(true)
-    //let guessCoords = getGuessCoords()
 
 }
 
@@ -76,14 +56,25 @@ function startGame() {
 
 
     return (
-        <div className="gameContainer">efef
-           {(contextMenu) ? (<SelectionMenu 
+        <div className="gameContainer">edfefeweee
+           {(contextMenu) ? (
+            <div>
+            <TargetBox 
+                menuCoords = {menuCoords}
+                setMenuCoords = {setMenuCoords}
                 coords = {coords}
                 setCoords = {setCoords}
-            />) : (null)}
+            />
+            <SelectionMenu 
+                menuCoords = {menuCoords}
+                setMenuCoords = {setMenuCoords}
+                coords = {coords}
+                setCoords = {setCoords}
+            />
+            </div>) : (null)}
             <button onClick={startGame} className="startButton">Start!</button>
             <img src={props.level.url} alt="waldoSkiing" id="skiPic" 
-                className="waldoPic" onDrag={handleMove} onClick={handleClick}></img>
+                className="waldoPic" onClick={handleClick}></img>
 
 
         </div>
