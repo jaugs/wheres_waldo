@@ -1,27 +1,18 @@
 import {storage} from '../firebase';
 import { getDownloadURL, ref } from "firebase/storage";
 import {useEffect} from 'react'
+import '../styles/homepage.css'
+import Image from './images';
 
 function Homepage(props) {
+const levelNames = props.levelNames
+const setLevelNames = props.setLevelNames
 
-    useEffect(() => {
-        getImage();
-      }, []);
-
-    async function getImage(levelName) {
-        // const imgRef = query(collection(storage, 'images'))
-        const storageRef = ref(storage);
-        //const imagesRef = ref(storageRef, 'images/WWsocialgraphic20.jpg');
-        //const fileName = 'skiLevel.jpg';
-        const levelRef = ref(storageRef, `images/${levelName}.jpg`);
-        let levelUrl = await getDownloadURL(levelRef)
-        console.log(levelUrl)
-        return levelUrl
-        // props.setLevel({
-        //  level: 'skiLevel',
-        //  url: skiUrl
-        // })
-       }
+// useEffect(() => {
+//    setLevelNames(levelNames)
+   
+// },[levelNames, setLevelNames])
+    
 
     return (
         <div className="homeContainer">
@@ -34,7 +25,8 @@ function Homepage(props) {
             </ul>
             <div className="levelContainer">
                 {props.levelNames.map((level) => (<div className="levelCard" id={level.name} key={level.name}>{level.title}
-                    <img alt={level.title} src={() => getImage(level.name)}></img>
+                  {/* <img className='homepagePic' key={level.image} alt={level.title} src={level.image}></img> */}
+                  <Image name = {level.name} image = {level.image} />
                     </div>))}
             </div>
         </div>

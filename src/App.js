@@ -1,11 +1,11 @@
 import './App.css';
 //import {db} from './firebase';
-//import {storage} from './firebase';
-//import { getDownloadURL, ref } from "firebase/storage";
+import {storage} from './firebase';
+import { getDownloadURL, ref } from "firebase/storage";
 //import {collection, addDoc, Timestamp} from 'firebase/firestore'
 //import {storage} from './firebase';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 //import { query, orderBy, onSnapshot} from "firebase/firestore"
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
@@ -20,19 +20,87 @@ function App() {
       url: ''
   })
 
+  const [levelUrls, setLevelUrls] = useState([])
   const [timer, setTimer] = useState(0)
   const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
-const levelNames = [{name: 'skiLevel',
-                    title: 'Ski Resort'},
-                    {name: 'beachLevel',
-                    title: 'Beach Party'},
-                    {name: 'townLevel',
-                    title: 'Town Square'},
-                    {name: 'feastLevel',
-                    title: 'Gobbling Gluttons'}
-                   ] 
-  
+
+
+ const [levelNames, setLevelNames] = useState([
+  {name: 'skiLevel',
+   title: 'Ski Resort',
+   image: 'ssss'
+  },
+  {name: 'beachLevel',
+  title: 'Beach Party',
+  image: ''
+  },
+  {name: 'townLevel',
+  title: 'Town Square',
+  image: ''
+  },
+  {name: 'feastLevel',
+  title: 'Gobbling Gluttons',
+  image: ''
+  }
+  ]) 
+
+
+ 
+ const getImage = useCallback(async() => {
+  let urlArr = []
+  const storageRef = ref(storage);
+
+  urlArr.forEach(async element => {
+      //let levelRef = ref(storageRef, `images/${element.name}.jpg`)
+      let levelRef = ref(storageRef, `images`)
+      console.log(slevelRef)
+      let levelUrl = await getDownloadURL(levelRef)
+      //console.log(urlArr)
+      element.image = levelUrl
+     // urlArr.push(levelUrl)
+  });
+  setLevelNames(urlArr)
+  console.log(levelNames)
+ }, [levelNames])
+
+//  useEffect(() => {
+//   getImage()
+
+// }, [getImage]);
+
+
+
+
+
+
+// async function getImage() {
+//   const levelData = [
+//     {name: 'skiLevel',
+//      title: 'Ski Resort',
+//      image: 'ssss'
+//     },
+//     {name: 'beachLevel',
+//     title: 'Beach Party',
+//     image: `${await getImage}`
+//     },
+//     {name: 'townLevel',
+//     title: 'Town Square',
+//     image: ''
+//     },
+//     {name: 'feastLevel',
+//     title: 'Gobbling Gluttons',
+//     image: ''
+//     }
+//     ]) 
+// } 
+
+
+   
+   
+     //async function getImage(){
+      
+
 
   //  getDownloadURL(starsRef)
   // .then((url) => {
@@ -97,7 +165,10 @@ useEffect(() => {
         exact path="/"
         element= {
           <Homepage
+            levelUrls = {levelUrls}
+            setLevelUrls = {setLevelUrls}
             levelNames = {levelNames}
+            setLevelNames = {setLevelNames}
             setLevel = {setLevel}
           />
         }
