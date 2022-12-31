@@ -1,7 +1,7 @@
 import './App.css';
-//import {db} from './firebase';
+import {db} from './firebase';
 import {storage} from './firebase';
-import { getDownloadURL, ref } from "firebase/storage";
+import { getDownloadURL, ref} from "firebase/storage";
 //import {collection, addDoc, Timestamp} from 'firebase/firestore'
 //import {storage} from './firebase';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
@@ -10,7 +10,10 @@ import {useState, useEffect, useCallback} from 'react'
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
 import Homepage from './components/homepage';
-
+import { collection, getDocs, query } from 'firebase/firestore';
+//import { getDatabase, ref, onValue} from "firebase/database";
+//import { getDatabase, ref, child, get } from "firebase/database";
+import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 
 function App() {
@@ -20,125 +23,51 @@ function App() {
       url: ''
   })
 
-  const [levelUrls, setLevelUrls] = useState([])
+  const [levels, setLevels] = useState([])
   const [timer, setTimer] = useState(0)
   const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
 
 
- const [levelNames, setLevelNames] = useState([
-  {name: 'skiLevel',
-   title: 'Ski Resort',
-   image: 'ssss'
-  },
-  {name: 'beachLevel',
-  title: 'Beach Party',
-  image: ''
-  },
-  {name: 'townLevel',
-  title: 'Town Square',
-  image: ''
-  },
-  {name: 'feastLevel',
-  title: 'Gobbling Gluttons',
-  image: ''
-  }
-  ]) 
+//  const [levelNames, setLevelNames] = useState([
+//   {name: 'skiLevel',
+//    title: 'Ski Resort',
+//    url: ''
+//   },
+//   {name: 'beachLevel',
+//   title: 'Beach Party',
+//   url: ''
+//   },
+//   {name: 'townLevel',
+//   title: 'Town Square',
+//   url: ''
+//   },
+//   {name: 'feastLevel',
+//   title: 'Gobbling Gluttons',
+//   url: ''
+//   }
+// ]) 
 
+//const [newImage, setnewImage] = useState('')
 
+ async function getImage()  {
+  const levelList = [];
+  const q = query(collection(db, 'data'));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach(doc => {
+    const level = doc.data();
+    levelList.push(level);
+  })
+  console.log(levelList);
+  setLevels(levelList)
+}
  
- const getImage = useCallback(async() => {
-  let urlArr = []
-  const storageRef = ref(storage);
-
-  urlArr.forEach(async element => {
-      //let levelRef = ref(storageRef, `images/${element.name}.jpg`)
-      let levelRef = ref(storageRef, `images`)
-      console.log(slevelRef)
-      let levelUrl = await getDownloadURL(levelRef)
-      //console.log(urlArr)
-      element.image = levelUrl
-     // urlArr.push(levelUrl)
-  });
-  setLevelNames(urlArr)
-  console.log(levelNames)
- }, [levelNames])
-
-//  useEffect(() => {
-//   getImage()
-
-// }, [getImage]);
 
 
 
-
-
-
-// async function getImage() {
-//   const levelData = [
-//     {name: 'skiLevel',
-//      title: 'Ski Resort',
-//      image: 'ssss'
-//     },
-//     {name: 'beachLevel',
-//     title: 'Beach Party',
-//     image: `${await getImage}`
-//     },
-//     {name: 'townLevel',
-//     title: 'Town Square',
-//     image: ''
-//     },
-//     {name: 'feastLevel',
-//     title: 'Gobbling Gluttons',
-//     image: ''
-//     }
-//     ]) 
-// } 
-
-
-   
-   
-     //async function getImage(){
-      
-
-
-  //  getDownloadURL(starsRef)
-  // .then((url) => {
-  //   <img src={url} alt='d'></img>
-  // })
-  // .catch((error) => {
-  //   // A full list of error codes is available at
-  //   // https://firebase.google.com/docs/storage/web/handle-errors
-  //   switch (error.code) {
-  //     case 'storage/object-not-found':
-  //       // File doesn't exist
-  //       break;
-  //     case 'storage/unauthorized':
-  //       // User doesn't have permission to access the object
-  //       break;
-  //     case 'storage/canceled':
-  //       // User canceled the upload
-  //       break;
-
-  //     // ...
-
-  //     case 'storage/unknown':
-  //       // Unknown error occurred, inspect the server response
-  //       break;
-  //   }
-  // });
-
-
-// useEffect(() => {
-//   const taskColRef = query(collection(db, 'tasks'), orderBy('created', 'desc'))
-//   onSnapshot(taskColRef, (snapshot) => {
-//     setTasks(snapshot.docs.map(doc => ({
-//       id: doc.id,
-//       data: doc.data()
-//     })))
-//   })
-// },[])
-
+useEffect(() => {
+  getImage()
+}, [])
 
 
 useEffect(() => {
@@ -165,11 +94,8 @@ useEffect(() => {
         exact path="/"
         element= {
           <Homepage
-            levelUrls = {levelUrls}
-            setLevelUrls = {setLevelUrls}
-            levelNames = {levelNames}
-            setLevelNames = {setLevelNames}
-            setLevel = {setLevel}
+            levels = {levels}
+            setLevels = {setLevels}
           />
         }
         />
@@ -177,8 +103,8 @@ useEffect(() => {
         exact path="/level"
         element = {
           <WaldoGame
-            level = {level}
-            setLevel = {setLevel}
+            level = {levels}
+            setLevel = {setLevels}
           />
           }
         />
@@ -188,17 +114,3 @@ useEffect(() => {
   );
 }
 export default App;
-
-
-      // {tasks.map((task) => (
-      //   <Task
-      //     id={task.id}
-      //     key={task.id}
-      //     completed={task.data.completed}
-      //     title={task.data.title} 
-      //     description={task.data.description}
-      //   />
-      // ))}
-         // {openAddModal &&
-      //   <AddTask onClose={() => setOpenAddModal(false)} open={openAddModal}/>
-      // }

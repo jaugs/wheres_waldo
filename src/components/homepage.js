@@ -5,8 +5,6 @@ import '../styles/homepage.css'
 import Image from './images';
 
 function Homepage(props) {
-const levelNames = props.levelNames
-const setLevelNames = props.setLevelNames
 
 // useEffect(() => {
 //    setLevelNames(levelNames)
@@ -24,10 +22,12 @@ const setLevelNames = props.setLevelNames
                 <li>Wizard</li>
             </ul>
             <div className="levelContainer">
-                {props.levelNames.map((level) => (<div className="levelCard" id={level.name} key={level.name}>{level.title}
-                  {/* <img className='homepagePic' key={level.image} alt={level.title} src={level.image}></img> */}
-                  <Image name = {level.name} image = {level.image} />
-                    </div>))}
+            {props.levels.map((level) => 
+                (<div className="levelCard" id={level.name} key={level.id}>{level.title}
+                <img className='homepagePic' key={level.title} src={level.url} alt='eee'></img>
+                </div>
+                ))}
+               
             </div>
         </div>
     )
