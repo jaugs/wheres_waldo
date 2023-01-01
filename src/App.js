@@ -1,11 +1,11 @@
 import './App.css';
 import {db} from './firebase';
-import {storage} from './firebase';
-import { getDownloadURL, ref} from "firebase/storage";
+//import {storage} from './firebase';
+//import { getDownloadURL, ref} from "firebase/storage";
 //import {collection, addDoc, Timestamp} from 'firebase/firestore'
 //import {storage} from './firebase';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect} from 'react'
 //import { query, orderBy, onSnapshot} from "firebase/firestore"
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
@@ -13,42 +13,15 @@ import Homepage from './components/homepage';
 import { collection, getDocs, query } from 'firebase/firestore';
 //import { getDatabase, ref, onValue} from "firebase/database";
 //import { getDatabase, ref, child, get } from "firebase/database";
-import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 
 function App() {
 
-  const [level, setLevel] = useState({
-      level: '',
-      url: ''
-  })
 
   const [levels, setLevels] = useState([])
   const [timer, setTimer] = useState(0)
   const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
-
-
-//  const [levelNames, setLevelNames] = useState([
-//   {name: 'skiLevel',
-//    title: 'Ski Resort',
-//    url: ''
-//   },
-//   {name: 'beachLevel',
-//   title: 'Beach Party',
-//   url: ''
-//   },
-//   {name: 'townLevel',
-//   title: 'Town Square',
-//   url: ''
-//   },
-//   {name: 'feastLevel',
-//   title: 'Gobbling Gluttons',
-//   url: ''
-//   }
-// ]) 
-
-//const [newImage, setnewImage] = useState('')
 
  async function getImage()  {
   const levelList = [];
@@ -99,15 +72,19 @@ useEffect(() => {
           />
         }
         />
-        <Route
-        exact path="/level"
-        element = {
-          <WaldoGame
-            level = {levels}
-            setLevel = {setLevels}
+        {levels.map((level, index) => {
+          return (
+          <Route
+            exact path= {`/${level.pathname}`}
+            key = {index}
+            element = {
+            <WaldoGame
+            level = {level}
+            />
+            }
           />
-          }
-        />
+          )
+        })}
       </Routes>
     </div>
   </Router>
