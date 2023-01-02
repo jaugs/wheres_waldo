@@ -31,7 +31,7 @@ function App() {
     const level = doc.data();
     levelList.push(level);
   })
-  console.log(levelList);
+  //console.log(levelList);
   setLevels(levelList)
 }
  

@@ -28,7 +28,7 @@ function SelectionMenu(props) {
 
    
     function handleClick(character) {
-
+        console.log(props)
      
         
     
@@ -43,6 +43,7 @@ function SelectionMenu(props) {
             <ul className='charList'>
                 <li onClick={() => handleClick('waldo')}>Waldo</li>
                 <li onClick={() => handleClick('odlaw')}>Odlaw</li>
+                <li onClick={() => handleClick('wizard')}>Wizard</li>
             </ul>
         </div>
     )
