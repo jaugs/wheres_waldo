@@ -73,7 +73,7 @@ function handleClick(e) {
 }
 
 function startGame() {
-    console.log('eee')
+    console.log(props.level)
 }
 
 
@@ -88,7 +88,7 @@ function startGame() {
                 setCoords = {setCoords}
             />
             <SelectionMenu 
-                levels = {props.levels}
+                level = {props.level}
                 setLevels = {props.setLevels}
                 menuCoords = {menuCoords}
                 setMenuCoords = {setMenuCoords}

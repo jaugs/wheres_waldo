@@ -27,10 +27,14 @@ function SelectionMenu(props) {
     }
 
    
-    function handleClick(character) {
-        console.log(props)
-     
-        
+    function handleClick(coordArr) {
+        console.log(Math.abs(props.coords.y - coordArr[1]))
+     if (Math.abs(props.coords.x - coordArr[0]) < 40 ) 
+        { if (Math.abs(props.coords.y - coordArr[1]) < 50) {
+            console.log('winner')}}
+        else {
+            console.log('no')
+        }
     
     }
            
@@ -41,9 +45,9 @@ function SelectionMenu(props) {
     return(
         <div className="selectionMenu" style={divStyle}>
             <ul className='charList'>
-                <li onClick={() => handleClick('waldo')}>Waldo</li>
-                <li onClick={() => handleClick('odlaw')}>Odlaw</li>
-                <li onClick={() => handleClick('wizard')}>Wizard</li>
+                <li onClick={() => handleClick(props.level.waldo)}>Waldo</li>
+                <li onClick={() => handleClick(props.level.odlaw)}>Odlaw</li>
+                <li onClick={() => handleClick(props.level.wizard)}>Wizard</li>
             </ul>
         </div>
     )
