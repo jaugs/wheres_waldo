@@ -10,6 +10,7 @@ import {useState, useEffect} from 'react'
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
 import Homepage from './components/homepage';
+import Leaderboard from './components/leaderboard';
 import { collection, getDocs, query } from 'firebase/firestore';
 //import { getDatabase, ref, onValue} from "firebase/database";
 //import { getDatabase, ref, child, get } from "firebase/database";
@@ -43,12 +44,7 @@ useEffect(() => {
 }, [])
 
 
-useEffect(() => {
-  if (timerToggle) {
-    setTimeout(() => {setTimer(timer + 1)}, '1000')
-  }
 
-}, [timer, timerToggle]);
 
 
 
@@ -80,11 +76,24 @@ useEffect(() => {
             element = {
             <WaldoGame
             level = {level}
+            timer = {timer}
+            setTimer = {setTimer}
+            setTimerToggle = {setTimerToggle}
+            timerToggle = {timerToggle}
+
             />
             }
           />
           )
         })}
+        <Route
+        exact path="leaderboard"
+        element={
+          <Leaderboard
+            levels = {levels}
+          />
+        }
+        />
       </Routes>
     </div>
   </Router>

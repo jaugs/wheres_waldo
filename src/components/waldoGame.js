@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/waldoGame.css'
 import {SelectionMenu} from './selectionMenu'
 import { TargetBox } from './selectionMenu';
 
 function WaldoGame(props) {
+
+
+  const {timer, setTimer, timerToggle, setTimerToggle} = props
+  const [waldoFound, setWaldoFound] = useState(false)
+  const [wizardFound, setWizardFound] = useState(false)
+  const [odlawFound, setOdlawFound] = useState(false)
+
+
 
    const [contextMenu, setContextMenu] = useState(false)
    const [coords, setCoords] = useState({
@@ -36,9 +44,31 @@ function WaldoGame(props) {
 //Wizard: x: 655 y: 780
 //Odlaw: x: 585 y:920
 
+useEffect(() => {
+  if (timerToggle) {
+    setTimeout(() => {setTimer(timer + 1)}, '1000')
+  }
+
+}, [timer, timerToggle, setTimer]);
+
+useEffect(() => {
+  if (!timerToggle) {
+    setTimerToggle(true)
+  }
+})
 
 
+useEffect(() => {
+    if (waldoFound && wizardFound && odlawFound) {
+      gameOver()
+    }
+})
 
+function gameOver() {
+  setTimerToggle(false);
+  console.log('over')
+
+}
 
 function getCoordinates(e) {
   const { width, height } =  e.target.getBoundingClientRect();
@@ -66,7 +96,6 @@ function getCoordinates(e) {
 
 
 function handleClick(e) {
- 
   getCoordinates(e);
    setContextMenu(true)
 
@@ -94,6 +123,12 @@ function startGame() {
                 setMenuCoords = {setMenuCoords}
                 coords = {coords}
                 setCoords = {setCoords}
+                waldoFound = {waldoFound}
+                setWaldoFound = {setWaldoFound}
+                wizardFound = {wizardFound}
+                setWizardFound = {setWizardFound}
+                odlawFound = {odlawFound}
+                setOdlawFound = {setOdlawFound}
             />
             </div>) : (null)}
             <button onClick={startGame} className="startButton">Start!</button>

@@ -13,17 +13,18 @@ function timerOn() {
         <div className='header'>
         <h2>Photo Tag App</h2>
         <h2>Wheres Waldo</h2>
-        <Link 
-          to="/level"
-          className='linkButton'>Level Select
-          </Link>
+       
           <Link 
           to="/"
           className='linkButton'> Home
           </Link>
           <div className="timerBox">{props.timer}</div>
-
+          
           <button onClick={timerOn}>Timer</button>
+          <Link
+          to="/leaderboard"
+          className='linkButton'>Leaderboard
+          </Link>
           </div>
         
     )

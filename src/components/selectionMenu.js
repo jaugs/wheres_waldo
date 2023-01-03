@@ -1,5 +1,7 @@
 //import { clearIndexedDbPersistence } from "firebase/firestore"
+import { useEffect } from 'react'
 import '../styles/selectionMenu.css'
+import WaldoGame from './waldoGame'
 
 
 function TargetBox(props) {
@@ -20,6 +22,9 @@ function TargetBox(props) {
 
 function SelectionMenu(props) {
 
+const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound} = props
+
+
     const divStyle = {
         position: 'absolute',
         top: `${props.menuCoords.y - 150 / 4}px`,
@@ -27,13 +32,16 @@ function SelectionMenu(props) {
     }
 
    
-    function handleClick(coordArr) {
+    function handleClick(coordArr, isFound) {
         console.log(Math.abs(props.coords.y - coordArr[1]))
      if (Math.abs(props.coords.x - coordArr[0]) < 40 ) 
         { if (Math.abs(props.coords.y - coordArr[1]) < 50) {
-            console.log('winner')}}
+            isFound(true)
+        console.log(isFound)}
+        else isFound(false)
+        }
         else {
-            console.log('no')
+           isFound(false)
         }
     
     }
@@ -45,9 +53,9 @@ function SelectionMenu(props) {
     return(
         <div className="selectionMenu" style={divStyle}>
             <ul className='charList'>
-                <li onClick={() => handleClick(props.level.waldo)}>Waldo</li>
-                <li onClick={() => handleClick(props.level.odlaw)}>Odlaw</li>
-                <li onClick={() => handleClick(props.level.wizard)}>Wizard</li>
+                {waldoFound ? (<li className='foundChar'>Waldo</li>) : (<li onClick={() => handleClick(props.level.waldo, setWaldoFound)}>Waldo</li>)}
+                {odlawFound ? (<li className='foundChar'>Odlaw</li>) : (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound)}>Odlaw</li>)}
+                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound)}>Wizard</li>)}   
             </ul>
         </div>
     )
