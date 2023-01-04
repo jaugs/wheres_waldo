@@ -1,7 +1,7 @@
 //import { clearIndexedDbPersistence } from "firebase/firestore"
-import { useEffect } from 'react'
+//import { useEffect } from 'react'
 import '../styles/selectionMenu.css'
-import WaldoGame from './waldoGame'
+//import WaldoGame from './waldoGame'
 
 
 function TargetBox(props) {
@@ -22,7 +22,7 @@ function TargetBox(props) {
 
 function SelectionMenu(props) {
 
-const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound} = props
+const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, guessChar, setGuessChar, setContextMenu} = props
 
 
     const divStyle = {
@@ -32,19 +32,22 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
     }
 
    
-    function handleClick(coordArr, isFound) {
-        console.log(Math.abs(props.coords.y - coordArr[1]))
-     if (Math.abs(props.coords.x - coordArr[0]) < 40 ) 
-        { if (Math.abs(props.coords.y - coordArr[1]) < 50) {
-            isFound(true)
-        console.log(isFound)}
-        else isFound(false)
+    function handleClick(coordArr, isFound, charString) {
+        console.log(document.querySelector('.waldoPic').getBoundingClientRect())
+     if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) 
+        {isFound(true)
+        console.log('found')
+        setContextMenu(false)
+        } else {
+        isFound(false)
+        setGuessChar(charString)
+        console.log(guessChar)
+        setContextMenu(false)
         }
-        else {
-           isFound(false)
+        
         }
     
-    }
+    
            
       
 // x= 962 1024 left right
@@ -53,9 +56,9 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
     return(
         <div className="selectionMenu" style={divStyle}>
             <ul className='charList'>
-                {waldoFound ? (<li className='foundChar'>Waldo</li>) : (<li onClick={() => handleClick(props.level.waldo, setWaldoFound)}>Waldo</li>)}
-                {odlawFound ? (<li className='foundChar'>Odlaw</li>) : (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound)}>Odlaw</li>)}
-                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound)}>Wizard</li>)}   
+                {waldoFound ? (<li className='foundChar'>Waldo</li>) : (<li onClick={() => handleClick(props.level.waldo, setWaldoFound, 'Waldo')}>Waldo</li>)}
+                {odlawFound ? (<li className='foundChar'>Odlaw</li>) : (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound, 'Odlaw')}>Odlaw</li>)}
+                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound, 'Wizard')}>Wizard</li>)}   
             </ul>
         </div>
     )

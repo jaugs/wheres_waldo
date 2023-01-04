@@ -10,7 +10,7 @@ function WaldoGame(props) {
   const [waldoFound, setWaldoFound] = useState(false)
   const [wizardFound, setWizardFound] = useState(false)
   const [odlawFound, setOdlawFound] = useState(false)
-
+  const [guessChar, setGuessChar] = useState('')
 
 
    const [contextMenu, setContextMenu] = useState(false)
@@ -22,6 +22,11 @@ function WaldoGame(props) {
     x: 0,
     y: 0
    })
+
+  //  const wrongGuessStyle = {
+  //      top: `${document.querySelector('.waldoPic').getBoundingClientRect().top + 20}px`,
+  //      left: `${document.querySelector('.waldoPic').getBoundingClientRect().left + 500}px`
+  //  }
    // useEffect()
 
 //feast
@@ -43,6 +48,13 @@ function WaldoGame(props) {
 //Waldo: x: 425 y: 760
 //Wizard: x: 655 y: 780
 //Odlaw: x: 585 y:920
+
+useEffect(() => {
+  if (guessChar !== '') {
+    setTimeout(() => {setGuessChar('')}, '4000')
+    
+  }
+}, [guessChar])
 
 useEffect(() => {
   if (timerToggle) {
@@ -101,13 +113,8 @@ function handleClick(e) {
 
 }
 
-function startGame() {
-    console.log(props.level)
-}
-
-
     return (
-        <div className="gameContainer">edfefeweee
+        <div className="gameContainer">
            {(contextMenu) ? (
             <div>
             <TargetBox 
@@ -129,9 +136,13 @@ function startGame() {
                 setWizardFound = {setWizardFound}
                 odlawFound = {odlawFound}
                 setOdlawFound = {setOdlawFound}
+                guessChar = {guessChar}
+                setGuessChar = {setGuessChar}
+                contextMenu = {contextMenu}
+                setContextMenu = {setContextMenu}
             />
             </div>) : (null)}
-            <button onClick={startGame} className="startButton">Start!</button>
+            {(guessChar !== '') ? (<div className="wrongGuess">Sorry! No {guessChar} here!</div>) : null}
             <img src={props.level.url} alt={props.level.title} 
                 className="waldoPic" onClick={handleClick}></img>
 
