@@ -1,5 +1,12 @@
+import { useState } from "react"
+import {db} from '../firebase';
+import { collection, getDocs, query } from 'firebase/firestore';
 
 function Leaderboard(props) {
+
+const [beachLeaders, setBeachLeaders] = useState([])
+
+
 
 function selectLevel(level) {
     console.log(level)

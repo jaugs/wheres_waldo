@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/waldoGame.css'
 import {SelectionMenu} from './selectionMenu'
 import { TargetBox } from './selectionMenu';
-
+import { WrongGuess } from './selectionMenu';
 function WaldoGame(props) {
 
 
@@ -23,11 +23,7 @@ function WaldoGame(props) {
     y: 0
    })
 
-  //  const wrongGuessStyle = {
-  //      top: `${document.querySelector('.waldoPic').getBoundingClientRect().top + 20}px`,
-  //      left: `${document.querySelector('.waldoPic').getBoundingClientRect().left + 500}px`
-  //  }
-   // useEffect()
+
 
 //feast
 //Waldo: x: 565  + 20 y: 365 +40
@@ -49,12 +45,6 @@ function WaldoGame(props) {
 //Wizard: x: 655 y: 780
 //Odlaw: x: 585 y:920
 
-useEffect(() => {
-  if (guessChar !== '') {
-    setTimeout(() => {setGuessChar('')}, '4000')
-    
-  }
-}, [guessChar])
 
 useEffect(() => {
   if (timerToggle) {
@@ -77,6 +67,7 @@ useEffect(() => {
 })
 
 function gameOver() {
+  //setScore(timer)
   setTimerToggle(false);
   console.log('over')
 
@@ -142,11 +133,13 @@ function handleClick(e) {
                 setContextMenu = {setContextMenu}
             />
             </div>) : (null)}
-            {(guessChar !== '') ? (<div className="wrongGuess">Sorry! No {guessChar} here!</div>) : null}
+            
             <img src={props.level.url} alt={props.level.title} 
                 className="waldoPic" onClick={handleClick}></img>
-
-
+            <WrongGuess
+              guessChar = {guessChar}
+              setGuessChar = {setGuessChar}
+            />
         </div>
 
     )

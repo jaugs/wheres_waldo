@@ -1,5 +1,5 @@
 //import { clearIndexedDbPersistence } from "firebase/firestore"
-//import { useEffect } from 'react'
+import { useEffect } from 'react'
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
@@ -19,6 +19,34 @@ function TargetBox(props) {
     )
 }
 
+function WrongGuess(props) {
+
+    const {guessChar, setGuessChar} = props
+
+    useEffect(() => {
+        if (guessChar !== '') {
+          setTimeout(() => {setGuessChar('')}, '4000')
+        }
+      }, [guessChar, setGuessChar])
+      
+const mediaQuery = window.matchMedia('(max-width: 800px)')
+const wrongGuessStyle = {
+    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 20}px`,
+    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
+}
+const wrongGuessStyleMobile = {
+    
+    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
+    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
+}
+return (
+    <div className='guessContainer'>
+    {(guessChar !== '') ? (<div style={(mediaQuery.matches) ? (wrongGuessStyleMobile) : (wrongGuessStyle)} className="wrongGuess">Sorry! No {guessChar} here!</div>) : null}
+    </div>
+)
+}
+
+
 
 function SelectionMenu(props) {
 
@@ -31,7 +59,6 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
         left: `${props.coords.x > 750 ? props.menuCoords.x -240 / 2 + 3 : props.menuCoords.x + 100 / 2 + 3}px`,
     }
 
-   
     function handleClick(coordArr, isFound, charString) {
         console.log(document.querySelector('.waldoPic').getBoundingClientRect())
      if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) 
@@ -65,3 +92,4 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
 }
 export {SelectionMenu}
 export {TargetBox}
+export {WrongGuess}
