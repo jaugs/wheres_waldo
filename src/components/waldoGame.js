@@ -7,12 +7,14 @@ import { ScoreBox } from './selectionMenu';
 function WaldoGame(props) {
 
 
-  const {timer, setTimer, timerToggle, setTimerToggle} = props
+  const {name, setName, timer, setTimer, timerToggle, setTimerToggle, level, setLevels} = props
   const [waldoFound, setWaldoFound] = useState(false)
   const [wizardFound, setWizardFound] = useState(false)
   const [odlawFound, setOdlawFound] = useState(false)
   const [guessChar, setGuessChar] = useState('')
   const [scoreToggle, setScoreToggle] = useState(false)
+  const [charFound, setCharFound] = useState(false)
+  const [characters, setCharacters] = useState('')
 
    const [contextMenu, setContextMenu] = useState(false)
    const [coords, setCoords] = useState({
@@ -69,6 +71,11 @@ useEffect(() => {
 
 function gameOver() {
   //setScore(timer)
+  setWizardFound(false)
+  setWaldoFound(false)
+  setOdlawFound(false)
+  setCharacters('')
+  setCharFound(false)
   setTimerToggle(false);
   setContextMenu(false)
   setScoreToggle(true)
@@ -118,8 +125,8 @@ function handleClick(e) {
                 setCoords = {setCoords}
             />
             <SelectionMenu 
-                level = {props.level}
-                setLevels = {props.setLevels}
+                level = {level}
+                setLevels = {setLevels}
                 menuCoords = {menuCoords}
                 setMenuCoords = {setMenuCoords}
                 coords = {coords}
@@ -134,6 +141,10 @@ function handleClick(e) {
                 setGuessChar = {setGuessChar}
                 contextMenu = {contextMenu}
                 setContextMenu = {setContextMenu}
+                setCharFound = {setCharFound}
+                characters = {characters}
+                setCharacters = {setCharacters}
+            
             />
             </div>) : (null)}
             
@@ -144,10 +155,19 @@ function handleClick(e) {
               setGuessChar = {setGuessChar}
             />
             <RightGuess
-              guessChar = {guessChar}
-              setGuessChar = {setGuessChar}
+              characters = {characters}
+              setCharacters = {setCharacters}
+              charFound = {charFound}
+              setCharFound = {setCharFound}
             />
-            {scoreToggle ? <ScoreBox timer = {timer} setScoreToggle = {setScoreToggle}/> : null}
+            {scoreToggle ? 
+              <ScoreBox 
+                setName = {setName} 
+                timer = {timer} 
+                scoreToggle={scoreToggle} 
+                setScoreToggle = {setScoreToggle}
+                level = {level}
+                /> : null}
         </div>
 
     )

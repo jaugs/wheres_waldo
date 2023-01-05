@@ -10,7 +10,7 @@ import {useState, useEffect} from 'react'
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
 import Homepage from './components/homepage';
-import Leaderboard from './components/leaderboard';
+import {Leaderboard, BeachBoard} from './components/leaderboard';
 import { collection, getDocs, query } from 'firebase/firestore';
 //import { getDatabase, ref, onValue} from "firebase/database";
 //import { getDatabase, ref, child, get } from "firebase/database";
@@ -23,7 +23,7 @@ function App() {
   const [timer, setTimer] = useState(0)
   const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
-
+  const [name, setName] = useState('')
  async function getImage()  {
   const levelList = [];
   const q = query(collection(db, 'data'));
@@ -80,20 +80,28 @@ useEffect(() => {
             setTimer = {setTimer}
             setTimerToggle = {setTimerToggle}
             timerToggle = {timerToggle}
+            name = {name}
+            setName = {setName}
 
             />
             }
           />
           )
         })}
-        <Route
-        exact path="leaderboard"
-        element={
+       
+          <Route
+          exact path="leaderboard"
+          element={
           <Leaderboard
             levels = {levels}
+            name = {name}
+            setName = {setName}
           />
-        }
-        />
+          }
+          />
+          <Route  exact path="leaderboard/beachlevel" element={<BeachBoard />} />
+        
+       
       </Routes>
     </div>
   </Router>

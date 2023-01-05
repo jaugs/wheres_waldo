@@ -1,9 +1,12 @@
 import { useState } from "react"
 import {db} from '../firebase';
 import { collection, getDocs, query, addDoc, setDoc, doc } from 'firebase/firestore';
+import { Link } from "react-router-dom";
+
 
 function Leaderboard(props) {
 
+    const {name } = props
 const [beachLeaders, setBeachLeaders] = useState([])
     
 
@@ -36,13 +39,24 @@ async function selectLevel(level) {
                 <p onClick={() => selectLevel('beach')}>Beach Party</p>
                 <p>Gobbling Glutons</p>
                 <p>Ski Mountain</p>
-                <p>Town Square</p>
+                <Link to="/leaderboard/beachLevel" >Town Square</Link>
             </div>
             <div className="leaderBoard">
+            <div>{name}</div>
                 
             </div>
 
         </div>
     )
 }
-export default Leaderboard
+
+function BeachBoard(props) {
+
+    return(
+        <div>eeeeesdsdfsdfsdf</div>
+    )
+}
+
+
+export {Leaderboard}
+export {BeachBoard}

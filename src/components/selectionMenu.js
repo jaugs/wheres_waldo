@@ -1,5 +1,6 @@
 //import { clearIndexedDbPersistence } from "firebase/firestore"
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
@@ -20,28 +21,34 @@ function TargetBox(props) {
 }
 
 function RightGuess(props) {
-
-    const {waldoFound, wizardFound, odlawFound} = props
+    const {characters, setCharFound, charFound} = props
 
     useEffect(() => {
-        if (waldoFound) {
-          setTimeout(() => {}, '4000')
-        }
-      }, [waldoFound])
+        if (characters === "Waldo") {
+          setTimeout(() => {setCharFound(false)}, '4000')
+        } else if (characters === "the Wizard") {
+            setTimeout(() => {setCharFound(false)}, '4000')
+        } else if (characters === "Odlaw") {
+            setTimeout(() => {setCharFound(false)}, '4000') }
+      }, [characters, setCharFound])
       
 const mediaQuery = window.matchMedia('(max-width: 800px)')
-const wrongGuessStyle = {
+const rightGuessStyle = {
     top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 20}px`,
     left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
 }
-const wrongGuessStyleMobile = {
+const rightGuessStyleMobile = {
     
     top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
     left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
 }
 return (
-    <div className='guessContainer'>
-    {/* {(guessChar !== '') ? (<div style={(mediaQuery.matches) ? (wrongGuessStyleMobile) : (wrongGuessStyle)} className="wrongGuess">Good Work! You Found {guessChar}!</div>) : null} */}
+    <div className='rightGuessContainer'>
+    {(charFound) ? 
+    (<div style={(mediaQuery.matches) ? 
+    (rightGuessStyleMobile) : 
+    (rightGuessStyle)} className="rightGuess">Good Work! You Found {characters}!</div>) : 
+    null}
     </div>
 )
 }
@@ -77,17 +84,18 @@ return (
 )
 }
 
+
 function ScoreBox(props) {
 
-const [name, setName] = useState('')
 
+const {setName, scoreToggle, setScoreToggle, level} = props
 function handleChange(e) {
     setName(e.target.value)
 }
 
 function submitName() {
-    console.log(name)
-    props.setScoreToggle(false)
+    console.log(props.level)
+    setScoreToggle(false)
 }
 
 const scoreBoxStyle = {
@@ -101,7 +109,7 @@ const scoreBoxStyle = {
             <p className='a'>Congratulations! You found all the characters in {props.timer} seconds!</p>
             <p className='b'>Please enter your name:</p>
             <input maxLength={10} className='inputField' onChange={handleChange} type='text'></input>
-            <button className='submit' onClick={submitName}>Submit</button>
+            <Link to={`/leaderboard/${level.pathname}`} className='submit' onClick={submitName}>Submit</Link>
         </div>
     )
 }
@@ -110,7 +118,7 @@ const scoreBoxStyle = {
 
 function SelectionMenu(props) {
 
-const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, guessChar, setGuessChar, setContextMenu} = props
+const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, guessChar, setGuessChar, setContextMenu, setCharFound, setCharacters} = props
 
 
     const divStyle = {
@@ -123,7 +131,8 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
        // console.log(document.querySelector('.waldoPic').getBoundingClientRect())
      if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) 
         {isFound(true)
-        console.log('found')
+        setCharFound(true)
+        setCharacters(charString)
         setContextMenu(false)
 
         } else {
@@ -146,7 +155,7 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
             <ul className='charList'>
                 {waldoFound ? (<li className='foundChar'>Waldo</li>) : (<li onClick={() => handleClick(props.level.waldo, setWaldoFound, 'Waldo')}>Waldo</li>)}
                 {odlawFound ? (<li className='foundChar'>Odlaw</li>) : (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound, 'Odlaw')}>Odlaw</li>)}
-                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound, 'Wizard')}>Wizard</li>)}   
+                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound, 'the Wizard')}>Wizard</li>)}   
             </ul>
         </div>
     )
