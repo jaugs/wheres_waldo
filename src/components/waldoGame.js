@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import '../styles/waldoGame.css'
-import {SelectionMenu} from './selectionMenu'
+import {RightGuess, SelectionMenu} from './selectionMenu'
 import { TargetBox } from './selectionMenu';
 import { WrongGuess } from './selectionMenu';
+import { ScoreBox } from './selectionMenu';
 function WaldoGame(props) {
 
 
@@ -11,7 +12,7 @@ function WaldoGame(props) {
   const [wizardFound, setWizardFound] = useState(false)
   const [odlawFound, setOdlawFound] = useState(false)
   const [guessChar, setGuessChar] = useState('')
-
+  const [scoreToggle, setScoreToggle] = useState(false)
 
    const [contextMenu, setContextMenu] = useState(false)
    const [coords, setCoords] = useState({
@@ -69,6 +70,8 @@ useEffect(() => {
 function gameOver() {
   //setScore(timer)
   setTimerToggle(false);
+  setContextMenu(false)
+  setScoreToggle(true)
   console.log('over')
 
 }
@@ -91,9 +94,9 @@ function getCoordinates(e) {
   };
 
   setCoords(clickCoords);
-  console.log(clickCoords)
+  //console.log(clickCoords)
   setMenuCoords(menuCoords);
-  console.log(menuCoords)
+ // console.log(menuCoords)
 }
 
 
@@ -140,6 +143,11 @@ function handleClick(e) {
               guessChar = {guessChar}
               setGuessChar = {setGuessChar}
             />
+            <RightGuess
+              guessChar = {guessChar}
+              setGuessChar = {setGuessChar}
+            />
+            {scoreToggle ? <ScoreBox timer = {timer} setScoreToggle = {setScoreToggle}/> : null}
         </div>
 
     )

@@ -1,5 +1,5 @@
 //import { clearIndexedDbPersistence } from "firebase/firestore"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
@@ -18,6 +18,37 @@ function TargetBox(props) {
         <div id='guessCircle' className='selectionCircle' style={circleStyle}></div>
     )
 }
+
+function RightGuess(props) {
+
+    const {waldoFound, wizardFound, odlawFound} = props
+
+    useEffect(() => {
+        if (waldoFound) {
+          setTimeout(() => {}, '4000')
+        }
+      }, [waldoFound])
+      
+const mediaQuery = window.matchMedia('(max-width: 800px)')
+const wrongGuessStyle = {
+    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 20}px`,
+    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
+}
+const wrongGuessStyleMobile = {
+    
+    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
+    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
+}
+return (
+    <div className='guessContainer'>
+    {/* {(guessChar !== '') ? (<div style={(mediaQuery.matches) ? (wrongGuessStyleMobile) : (wrongGuessStyle)} className="wrongGuess">Good Work! You Found {guessChar}!</div>) : null} */}
+    </div>
+)
+}
+
+
+
+
 
 function WrongGuess(props) {
 
@@ -46,6 +77,35 @@ return (
 )
 }
 
+function ScoreBox(props) {
+
+const [name, setName] = useState('')
+
+function handleChange(e) {
+    setName(e.target.value)
+}
+
+function submitName() {
+    console.log(name)
+    props.setScoreToggle(false)
+}
+
+const scoreBoxStyle = {
+    position: 'absolute',
+    top: `${document.querySelector('.waldoPic').getBoundingClientRect().top + 100}px`,
+    left: `${document.querySelector('.waldoPic').getBoundingClientRect().left + 500}px`
+}
+
+    return(
+        <div style={scoreBoxStyle} className='scoreContainer'>
+            <p className='a'>Congratulations! You found all the characters in {props.timer} seconds!</p>
+            <p className='b'>Please enter your name:</p>
+            <input maxLength={10} className='inputField' onChange={handleChange} type='text'></input>
+            <button className='submit' onClick={submitName}>Submit</button>
+        </div>
+    )
+}
+
 
 
 function SelectionMenu(props) {
@@ -60,11 +120,12 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
     }
 
     function handleClick(coordArr, isFound, charString) {
-        console.log(document.querySelector('.waldoPic').getBoundingClientRect())
+       // console.log(document.querySelector('.waldoPic').getBoundingClientRect())
      if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) 
         {isFound(true)
         console.log('found')
         setContextMenu(false)
+
         } else {
         isFound(false)
         setGuessChar(charString)
@@ -92,4 +153,6 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
 }
 export {SelectionMenu}
 export {TargetBox}
+export {RightGuess}
 export {WrongGuess}
+export {ScoreBox}

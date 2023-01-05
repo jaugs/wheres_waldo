@@ -1,15 +1,31 @@
 import { useState } from "react"
 import {db} from '../firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query, addDoc, setDoc, doc } from 'firebase/firestore';
 
 function Leaderboard(props) {
 
 const [beachLeaders, setBeachLeaders] = useState([])
+    
 
 
+async function selectLevel(level) {
+  const doceee =   await setDoc(doc(db, 'leaderboards', 'beachBoard'), {
+        name: 'losamn',
+        state:  'ddddddddd'
+    });
+    console.log(doceee)
 
-function selectLevel(level) {
-    console.log(level)
+
+    try {
+        const docRef = await addDoc(collection(db, 'leaderboards', 'beachBoard'), {
+            first: 'ada',
+            last: 'ddd'
+        });
+        console.log('document', docRef.id)
+    } catch(e) {
+        console.error('error adding:', e)
+    }
+    //console.log(level)
 }
 
     return(
