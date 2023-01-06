@@ -4,13 +4,14 @@ import {db} from './firebase';
 //import { getDownloadURL, ref} from "firebase/storage";
 //import {collection, addDoc, Timestamp} from 'firebase/firestore'
 //import {storage} from './firebase';
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route} from "react-router-dom";
 import {useState, useEffect} from 'react'
 //import { query, orderBy, onSnapshot} from "firebase/firestore"
 import WaldoGame from './components/waldoGame';
 import Header from './components/header';
 import Homepage from './components/homepage';
-import {Leaderboard, BeachBoard} from './components/leaderboard';
+import {Leaderboard} from './components/leaderboard';
+import LevelBoard from './components/levelboard';
 import { collection, getDocs, query } from 'firebase/firestore';
 //import { getDatabase, ref, onValue} from "firebase/database";
 //import { getDatabase, ref, child, get } from "firebase/database";
@@ -24,6 +25,8 @@ function App() {
   const [timerToggle, setTimerToggle] = useState(false)
  // const storage = getStorage()
   const [name, setName] = useState('')
+
+
  async function getImage()  {
   const levelList = [];
   const q = query(collection(db, 'data'));
@@ -89,17 +92,40 @@ useEffect(() => {
           )
         })}
        
-          <Route
-          exact path="leaderboard"
-          element={
-          <Leaderboard
-            levels = {levels}
-            name = {name}
-            setName = {setName}
-          />
-          }
-          />
-          <Route  exact path="leaderboard/beachlevel" element={<BeachBoard />} />
+
+        <Route path="leaderboard" element={<Leaderboard levels = {levels}/>}>
+          {levels.map((level, index) => {
+            return (
+              <Route exact path='levelScoreBoard' key={`${index}dd`}
+              element={<LevelBoard level = {level}/>}
+              />
+           
+  
+                         )
+                         })}
+            
+
+         
+          {/* <Route
+              path = {`/leaderboard/${level.pathname}Scoreboard`} key={`${index}SB`}
+              element={<LevelBoard
+                          level = {level}
+                          timer = {timer} 
+                          />}
+                         />  */}
+
+
+          {/* <Route path="/leaderboard/beachboard" element={<LevelBoard />} />
+          <Route path="/leaderboard/skiboard" element={<LevelBoard />} />
+          <Route path="/leaderboard/feastboard" element={<LevelBoard />} />
+          <Route path="/leaderboard/townboard" element={<LevelBoard />} /> */}
+
+
+        </Route>
+
+
+
+
         
        
       </Routes>
