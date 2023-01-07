@@ -96,38 +96,17 @@ useEffect(() => {
         <Route path="leaderboard" element={<Leaderboard levels = {levels}/>}>
           {levels.map((level, index) => {
             return (
-              <Route exact path='levelScoreBoard' key={`${index}dd`}
+              <Route exact path={`${level.pathname}ScoreBoard`} key={`${index}dd`}
               element={<LevelBoard level = {level}/>}
               />
            
   
                          )
                          })}
-            
-
          
-          {/* <Route
-              path = {`/leaderboard/${level.pathname}Scoreboard`} key={`${index}SB`}
-              element={<LevelBoard
-                          level = {level}
-                          timer = {timer} 
-                          />}
-                         />  */}
-
-
-          {/* <Route path="/leaderboard/beachboard" element={<LevelBoard />} />
-          <Route path="/leaderboard/skiboard" element={<LevelBoard />} />
-          <Route path="/leaderboard/feastboard" element={<LevelBoard />} />
-          <Route path="/leaderboard/townboard" element={<LevelBoard />} /> */}
-
 
         </Route>
 
-
-
-
-        
-       
       </Routes>
     </div>
   </Router>

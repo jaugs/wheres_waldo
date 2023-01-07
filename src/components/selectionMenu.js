@@ -1,6 +1,7 @@
-//import { clearIndexedDbPersistence } from "firebase/firestore"
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import {db} from '../firebase';
+import { collection, getDocs, query, addDoc, setDoc, doc } from 'firebase/firestore';
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
@@ -88,13 +89,20 @@ return (
 function ScoreBox(props) {
 
 
-const {setName, scoreToggle, setScoreToggle, level} = props
+const {name, setName, timer, setScoreToggle, level} = props
 function handleChange(e) {
     setName(e.target.value)
 }
 
-function submitName() {
-    console.log(props.level)
+async function submitName() {
+    
+    const newScore =  await addDoc(doc(db, 'leaderboards', 'beachBoard'), {
+        name: `${name}`,
+        time: `${timer}`
+    });
+
+
+    console.log(newScore)
     setScoreToggle(false)
 }
 
@@ -109,7 +117,7 @@ const scoreBoxStyle = {
             <p className='a'>Congratulations! You found all the characters in {props.timer} seconds!</p>
             <p className='b'>Please enter your name:</p>
             <input maxLength={10} className='inputField' onChange={handleChange} type='text'></input>
-            <Link to={`/leaderboard/${level.pathname}`} className='submit' onClick={submitName}>Submit</Link>
+            <Link to={`/leaderboard/${level.pathname}ScoreBoard`} className='submit' onClick={submitName}>Submit</Link>
         </div>
     )
 }

@@ -1,0 +1,50 @@
+
+.leaderBoardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+}
+
+.leaderBoardContainer h3 {
+    color: red;
+}
+
+.levelBoardContainer {
+    color: red;
+}
+
+.levelSelect {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.levelLink {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    height: 3rem;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: blue;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.99) 0px 1px 3px 0px, rgba(0, 0, 0, 0.99) 0px 1px 2px 0px;
+
+}
+
+.levelLink:hover {
+    border: 2px solid blue;
+    color: darkred
+}
+
+.levelLink:active {
+    translate: 0px 6px;
+    border: 2px solid red;
+}

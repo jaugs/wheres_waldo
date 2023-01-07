@@ -162,6 +162,7 @@ function handleClick(e) {
             />
             {scoreToggle ? 
               <ScoreBox 
+                name = {name}
                 setName = {setName} 
                 timer = {timer} 
                 scoreToggle={scoreToggle} 

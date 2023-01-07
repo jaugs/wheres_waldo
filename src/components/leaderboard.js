@@ -2,48 +2,49 @@ import { useState } from "react"
 import {db} from '../firebase';
 import { collection, getDocs, query, addDoc, setDoc, doc } from 'firebase/firestore';
 import { Link, Outlet} from "react-router-dom";
-
+import '../styles/leaderboard.css'
 
 function Leaderboard(props) {
 
-    const {name } = props
+    const {name, levels } = props
 const [beachLeaders, setBeachLeaders] = useState([])
     
 
 
 async function selectLevel(level) {
-  const doceee =   await setDoc(doc(db, 'leaderboards', 'beachBoard'), {
-        name: 'losamn',
-        state:  'ddddddddd'
+
+    const nameRef = collection(db, 'towns')
+    
+
+
+
+  const doceee =   await setDoc(doc(db, 'leaderboards', 'scorebard'), {
+        name: 'cc',
+        state:  'dd'
     });
     console.log(doceee)
 
-
+    const scoreRef = collection(db, 'leaderboards', 'scorebare', 'beach')
     try {
-        const docRef = await addDoc(collection(db, 'leaderboards', 'beachBoard'), {
-            first: 'ada',
-            last: 'ddd'
+        const docRef = await addDoc(collection(db, 'leaderboards', 'scorebard', 'beach'), {
+            first: 'vv',
+            last: 'vv'
         });
-        console.log('document', docRef.id)
+        console.log(docRef)
     } catch(e) {
         console.error('error adding:', e)
     }
-    //console.log(level)
 }
 
     return(
-        <div className="leaderBoardContainer">dddd
-            <h2>Top Ten Scores </h2>
+        <div className="leaderBoardContainer">
+            <h2>Top Ten Scores</h2>
+            <button onClick={selectLevel}>try</button>
             <h3>Select a Level to view:</h3>
             <div className="levelSelect">
-                <p onClick={() => selectLevel('beach')}>Beach Party</p>
-                <p>Gobbling Glutons</p>
-                <p>Ski Mountain</p>
-                <Link to="/leaderboard/levelScoreBoard" >Town Square</Link>
-            </div>
-            <div className="leaderBoard">
-            <div>{name}</div>
-                
+                {levels.map((level, index) => {
+                return (
+                  <Link className="levelLink" key={`${index}b`} to={`${level.pathname}ScoreBoard`}>{level.title}</Link>)})}   
             </div>
         <Outlet />
         </div>
