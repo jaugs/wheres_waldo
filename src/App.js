@@ -66,6 +66,7 @@ useEffect(() => {
         exact path="/"
         element= {
           <Homepage
+            setTimerToggle = {setTimerToggle}
             levels = {levels}
             setLevels = {setLevels}
           />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {db} from '../firebase';
-import { collection, getDocs, query, addDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, updateDoc, arrayUnion, addDoc, setDoc, doc } from 'firebase/firestore';
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
@@ -90,19 +90,30 @@ function ScoreBox(props) {
 
 
 const {name, setName, timer, setScoreToggle, level} = props
+
 function handleChange(e) {
     setName(e.target.value)
 }
 
-async function submitName() {
-    
-    const newScore =  await addDoc(doc(db, 'leaderboards', 'beachBoard'), {
-        name: `${name}`,
-        time: `${timer}`
-    });
+ async function submitName() {
 
-
-    console.log(newScore)
+    if (level.pathname === 'townLevel') {
+        await updateDoc(doc(db, 'data', 'town'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+    } else if (level.pathname === 'skiLevel') {
+        await updateDoc(doc(db, 'data', 'ski'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+    } else if (level.pathname === 'feastLevel') {
+        await updateDoc(doc(db, 'data', 'feast'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+    } else if (level.pathname === 'beachLevel') {
+        await updateDoc(doc(db, 'data', 'beach'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+    }
     setScoreToggle(false)
 }
 

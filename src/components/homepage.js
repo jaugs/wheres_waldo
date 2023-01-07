@@ -3,7 +3,9 @@ import '../styles/homepage.css'
 
 function Homepage(props) {
 
-
+    function startTimer() {
+        props.setTimerToggle(true)
+    }
 
     return (
         <div className="homeContainer">
@@ -17,7 +19,7 @@ function Homepage(props) {
             
             <div className="levelContainer">
             {props.levels.map((level) => 
-                (<Link to={level.pathname} key={level.id}>
+                (<Link onClick={startTimer} to={level.pathname} key={level.id}>
                     <div className="levelCard">{level.title}
                 <img className='homepagePic' key={level.title} src={level.url} alt={level.title}></img>
                 </div>

@@ -56,11 +56,11 @@ useEffect(() => {
 
 }, [timer, timerToggle, setTimer]);
 
-useEffect(() => {
-  if (!timerToggle) {
-    setTimerToggle(true)
-  }
-})
+// useEffect(() => {
+//   if (!timerToggle) {
+//     setTimerToggle(true)
+//   }
+// })
 
 
 useEffect(() => {
