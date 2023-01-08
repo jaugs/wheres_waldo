@@ -109,6 +109,7 @@ useEffect(() => {
         </Route>
 
       </Routes>
+      <div className='footer'>By JAUGS 2023</div>
     </div>
   </Router>
   );

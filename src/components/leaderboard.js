@@ -9,7 +9,7 @@ function Leaderboard(props) {
 
     return(
         <div className="leaderBoardContainer">
-            <h2>Top Ten Scores</h2>
+            <h2>Leaderboards</h2>
             <h3>Select a Level to view:</h3>
             <div className="levelSelect">
                 {levels.map((level, index) => {

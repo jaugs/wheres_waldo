@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    gap: 10px;
+    gap: .7rem;
 }
 
 .leaderBoardContainer h3 {
@@ -15,22 +15,31 @@
 .levelBoardContainer {
     font-size: 22px;
     font-weight: 700;
-    color: red;
+    color: blue;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap:10px;
+    padding: 1.5rem;
+    gap:15px;
+    box-shadow: rgba(0, 0, 0, 0.99) 0px 1px 3px 0px, rgba(0, 0, 0, 0.99) 0px 1px 2px 0px;
+    border-radius: 15px;
+    background-color: #f7f7f7;
+    margin-top: 1rem;
 }
 
 .levelSelect {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 1rem;
+    padding:1rem;
+    box-shadow: rgba(0, 0, 0, 0.99) 0px 1px 3px 0px, rgba(0, 0, 0, 0.99) 0px 1px 2px 0px;
+    border-radius: 15px;
+    background-color: #f7f7f7;
 }
 
 .levelLink {
+    background-color: white;
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -80,6 +89,8 @@
     font-weight: 600;
     justify-content: space-between;
     align-items: center;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .first {
