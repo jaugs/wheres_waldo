@@ -1,15 +1,17 @@
-//import { Outlet } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import '../styles/leaderboard.css'
 //import { Leaderboard } from './leaderboard'
 import {db} from '../firebase';
 import {  doc, getDoc } from 'firebase/firestore';
+import Trophy from '../images/firstPlace';
+import SecondPlace from '../images/secondPlace';
+import ThirdPlace from '../images/thirdPlace';
+
 
 export default function LevelBoard(props) {  
 
     const {level} = props
     const [leaders, setLeaders] = useState([])
-
 
     useEffect(() => {
         async function getLeaders() {
@@ -35,18 +37,57 @@ export default function LevelBoard(props) {
         getLeaders()
     }, [level])
 
- 
-
     return(
-        <div className='levelBoardContainer'>
-        <h4>{level.title} Leaderboard</h4>
-        <ul>
+        <div className='levelBoardContainer'>{level.title} Leaderboard
+        <ul className='leaderList'>
             {leaders.map((user, index) => 
-            (<li className='userList' key={index}>
-                <p>{user.name}</p> 
-                <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p> 
-            </li>))}
-        </ul>
+            
+            {
+            
+            if (index + 1 === 1) {
+                return (
+                    <li key={index} className='first'>
+                        <Trophy />
+                        <p>{user.name}</p>
+                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                    </li>)
+            } else if (index+1 === 2) { return (
+                    <li key={index} className='second'>
+                        <SecondPlace />
+                        <p>{user.name}</p>
+                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                    </li>) 
+            } else if (index+1 === 3) { return (
+                    <li key={index} className='third'>
+                        <ThirdPlace />
+                        <p>{user.name}</p>
+                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                    </li>) 
+            } else if (index === 0 || index === 1 || index === 2) {
+                return null
+            } else return (
+                <li key={index} className='users'>
+                    <p className='number'>{index+1}.</p>
+                    <p>{user.name}</p>
+                   <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                </li>
+            )
+
+            }
+            
+            )
+            }
+            
+            </ul>
+
+
+                
+           
+        
+        
+        
         </div>
     )
 }
+
+
