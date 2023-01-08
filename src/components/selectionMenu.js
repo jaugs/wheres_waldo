@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {db} from '../firebase';
-import { collection, updateDoc, arrayUnion, addDoc, setDoc, doc } from 'firebase/firestore';
+import { updateDoc, arrayUnion, doc } from 'firebase/firestore';
 import '../styles/selectionMenu.css'
 //import WaldoGame from './waldoGame'
 
