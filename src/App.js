@@ -23,7 +23,6 @@ function App() {
   const [levels, setLevels] = useState([])
   const [timer, setTimer] = useState(0)
   const [timerToggle, setTimerToggle] = useState(false)
- // const storage = getStorage()
   const [name, setName] = useState('')
 
 
@@ -35,19 +34,12 @@ function App() {
     const level = doc.data();
     levelList.push(level);
   })
-  //console.log(levelList);
   setLevels(levelList)
 }
  
-
-
-
 useEffect(() => {
   getImage()
 }, [])
-
-
-
 
 
 
@@ -66,6 +58,7 @@ useEffect(() => {
         exact path="/"
         element= {
           <Homepage
+            setTimer = {setTimer}
             setTimerToggle = {setTimerToggle}
             levels = {levels}
             setLevels = {setLevels}
