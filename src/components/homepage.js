@@ -15,8 +15,8 @@ function Homepage(props) {
         <div className="homeContainer">
             <div className="gameTextContainer">
             <div className='directions'>
-            <p>Choose your Level and find all characters!</p>
-            <p className="red">Complete the game in the fastest time to top the Leaderboard!</p>
+                <p>Choose your Level and find all characters!</p>
+                <p className="red">Complete the game in the fastest time to top the Leaderboard!</p>
             </div>
             <ul className="characterList">Characters to find:
                 <li>
@@ -37,13 +37,11 @@ function Homepage(props) {
             {props.levels.map((level) => 
                 (<Link className='linkCard' onClick={startTimer} to={level.pathname} key={level.id}>
                     <div className="levelCard">{level.title}
-                <img className='homepagePic' key={level.title} src={level.url} alt={level.title}></img>
-                </div>
+                        <img className='homepagePic' key={level.title} src={level.url} alt={level.title}></img>
+                    </div>
                 </Link>
                 ))}
-               
             </div>
-          
         </div>
     )
 }

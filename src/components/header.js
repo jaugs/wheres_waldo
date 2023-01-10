@@ -4,13 +4,9 @@ import '../styles/header.css'
 function Header(props) {
 
     function stopTimer() {
-       
-            props.setTimer(0)
-            props.setTimerToggle(false)
-        
-        
+        props.setTimer(0)
+        props.setTimerToggle(false)
     }
-
 
     return (
         <div className='header'>
@@ -31,7 +27,6 @@ function Header(props) {
                 className='linkButton'>Leaderboard
             </Link>
         </div>
-        
     )
 }
 export default Header

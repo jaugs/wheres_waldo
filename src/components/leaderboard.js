@@ -5,8 +5,6 @@ function Leaderboard(props) {
 
     const { levels } = props
 
-
-
     return(
         <div className="leaderBoardContainer">
             <h2>Leaderboards</h2>
@@ -16,13 +14,8 @@ function Leaderboard(props) {
                 return (
                   <Link className="levelLink" key={`${index}b`} to={`${level.pathname}ScoreBoard`}>{level.title}</Link>)})}   
             </div>
-        <Outlet />
+            <Outlet />
         </div>
     )
 }
-
-
-
-
-
 export {Leaderboard}

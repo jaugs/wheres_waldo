@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import {db} from '../firebase';
 import { updateDoc, arrayUnion, doc } from 'firebase/firestore';
 import '../styles/selectionMenu.css'
-//import WaldoGame from './waldoGame'
-
 
 function TargetBox(props) {
 
@@ -14,7 +12,6 @@ function TargetBox(props) {
        position: 'absolute',
         top: `${props.menuCoords.y - 100 / 2}px`,
        left: `${props.menuCoords.x - 100 / 2}px`,
-      
     }
     return (
         <div id='guessCircle' className='selectionCircle' style={circleStyle}></div>
@@ -22,6 +19,7 @@ function TargetBox(props) {
 }
 
 function RightGuess(props) {
+    
     const {characters, setCharFound, charFound} = props
 
     useEffect(() => {
@@ -31,7 +29,7 @@ function RightGuess(props) {
             setTimeout(() => {setCharFound(false)}, '4000')
         } else if (characters === "Odlaw") {
             setTimeout(() => {setCharFound(false)}, '4000') }
-      }, [characters, setCharFound])
+    }, [characters, setCharFound])
       
 const mediaQuery = window.matchMedia('(max-width: 800px)')
 const rightGuessStyle = {
@@ -39,24 +37,20 @@ const rightGuessStyle = {
     left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
 }
 const rightGuessStyleMobile = {
-    
     top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
     left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
 }
+
 return (
     <div className='rightGuessContainer'>
-    {(charFound) ? 
-    (<div style={(mediaQuery.matches) ? 
-    (rightGuessStyleMobile) : 
-    (rightGuessStyle)} className="rightGuess">Good Work! You Found {characters}!</div>) : 
-    null}
+        {(charFound) ? 
+            (<div style={(mediaQuery.matches) ? 
+                (rightGuessStyleMobile) : 
+                (rightGuessStyle)} className="rightGuess">Good Work! You Found {characters}!</div>) : 
+                null}
     </div>
 )
 }
-
-
-
-
 
 function WrongGuess(props) {
 
@@ -66,62 +60,63 @@ function WrongGuess(props) {
         if (guessChar !== '') {
           setTimeout(() => {setGuessChar('')}, '4000')
         }
-      }, [guessChar, setGuessChar])
+    }, [guessChar, setGuessChar])
       
-const mediaQuery = window.matchMedia('(max-width: 800px)')
-const wrongGuessStyle = {
-    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 20}px`,
-    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
-}
-const wrongGuessStyleMobile = {
-    
-    top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
-    left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
-}
+    const mediaQuery = window.matchMedia('(max-width: 800px)')
+    const wrongGuessStyle = {
+        top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 20}px`,
+        left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
+    }
+    const wrongGuessStyleMobile = {
+        top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
+        left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
+    }
+
 return (
     <div className='guessContainer'>
-    {(guessChar !== '') ? (<div style={(mediaQuery.matches) ? (wrongGuessStyleMobile) : (wrongGuessStyle)} className="wrongGuess">Sorry! No {guessChar} here!</div>) : null}
+        {(guessChar !== '') ? 
+            (<div style={(mediaQuery.matches) ? 
+                (wrongGuessStyleMobile) : 
+                (wrongGuessStyle)} className="wrongGuess">Sorry! No {guessChar} here!</div>) : 
+                null}
     </div>
 )
 }
 
-
 function ScoreBox(props) {
 
+    const {name, setName, timer, setScoreToggle, level} = props
 
-const {name, setName, timer, setScoreToggle, level} = props
-
-function handleChange(e) {
-    setName(e.target.value)
-}
-
- async function submitName() {
-
-    if (level.pathname === 'townLevel') {
-        await updateDoc(doc(db, 'data', 'town'), {
-            scoreboard: arrayUnion({name: name, time: timer})
-        });
-    } else if (level.pathname === 'skiLevel') {
-        await updateDoc(doc(db, 'data', 'ski'), {
-            scoreboard: arrayUnion({name: name, time: timer})
-        });
-    } else if (level.pathname === 'feastLevel') {
-        await updateDoc(doc(db, 'data', 'feast'), {
-            scoreboard: arrayUnion({name: name, time: timer})
-        });
-    } else if (level.pathname === 'beachLevel') {
-        await updateDoc(doc(db, 'data', 'beach'), {
-            scoreboard: arrayUnion({name: name, time: timer})
-        });
+    function handleChange(e) {
+        setName(e.target.value)
     }
-    setScoreToggle(false)
-}
 
-const scoreBoxStyle = {
-    position: 'absolute',
-    top: `${document.querySelector('.waldoPic').getBoundingClientRect().top + 100}px`,
-    left: `${document.querySelector('.waldoPic').getBoundingClientRect().left + 500}px`
-}
+    async function submitName() {
+        if (level.pathname === 'townLevel') {
+            await updateDoc(doc(db, 'data', 'town'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+        } else if (level.pathname === 'skiLevel') {
+            await updateDoc(doc(db, 'data', 'ski'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+        } else if (level.pathname === 'feastLevel') {
+            await updateDoc(doc(db, 'data', 'feast'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+        } else if (level.pathname === 'beachLevel') {
+            await updateDoc(doc(db, 'data', 'beach'), {
+            scoreboard: arrayUnion({name: name, time: timer})
+        });
+        }
+        setScoreToggle(false)
+    }
+
+    const scoreBoxStyle = {
+        position: 'absolute',
+        top: `${document.querySelector('.waldoPic').getBoundingClientRect().top + 100}px`,
+        left: `${document.querySelector('.waldoPic').getBoundingClientRect().left + 500}px`
+    }
 
     return(
         <div style={scoreBoxStyle} className='scoreContainer'>
@@ -133,12 +128,9 @@ const scoreBoxStyle = {
     )
 }
 
-
-
 function SelectionMenu(props) {
 
-const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, guessChar, setGuessChar, setContextMenu, setCharFound, setCharacters} = props
-
+    const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, setGuessChar, setContextMenu, setCharFound, setCharacters} = props
 
     const divStyle = {
         position: 'absolute',
@@ -147,34 +139,30 @@ const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOd
     }
 
     function handleClick(coordArr, isFound, charString) {
-       // console.log(document.querySelector('.waldoPic').getBoundingClientRect())
-     if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) 
-        {isFound(true)
-        setCharFound(true)
-        setCharacters(charString)
-        setContextMenu(false)
-
+        if ((Math.abs(props.coords.x - coordArr[0]) < 40) && (Math.abs(props.coords.y - coordArr[1]) < 50) ) {
+            isFound(true)
+            setCharFound(true)
+            setCharacters(charString)
+            setContextMenu(false)
         } else {
-        isFound(false)
-        setGuessChar(charString)
-        console.log(guessChar)
-        setContextMenu(false)
+            isFound(false)
+            setGuessChar(charString)
+            setContextMenu(false)
         }
-        
-        }
-    
-    
-           
-      
-// x= 962 1024 left right
-//y = 587 513 bottom top
-
+    }
+ 
     return(
         <div className="selectionMenu" style={divStyle}>
             <ul className='charList'>
-                {waldoFound ? (<li className='foundChar'>Waldo</li>) : (<li onClick={() => handleClick(props.level.waldo, setWaldoFound, 'Waldo')}>Waldo</li>)}
-                {odlawFound ? (<li className='foundChar'>Odlaw</li>) : (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound, 'Odlaw')}>Odlaw</li>)}
-                {wizardFound ? (<li className='foundChar'>Wizard</li>) : (<li onClick={() => handleClick(props.level.wizard, setWizardFound, 'the Wizard')}>Wizard</li>)}   
+                {waldoFound ? 
+                    (<li className='foundChar'>Waldo</li>) : 
+                    (<li onClick={() => handleClick(props.level.waldo, setWaldoFound, 'Waldo')}>Waldo</li>)}
+                {odlawFound ? 
+                    (<li className='foundChar'>Odlaw</li>) : 
+                    (<li onClick={() => handleClick(props.level.odlaw, setOdlawFound, 'Odlaw')}>Odlaw</li>)}
+                {wizardFound ? 
+                    (<li className='foundChar'>Wizard</li>) : 
+                    (<li onClick={() => handleClick(props.level.wizard, setWizardFound, 'the Wizard')}>Wizard</li>)}   
             </ul>
         </div>
     )
