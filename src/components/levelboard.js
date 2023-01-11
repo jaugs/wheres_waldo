@@ -35,6 +35,15 @@ export default function LevelBoard(props) {
         getLeaders()
     }, [level])
 
+    function getTime(time) {
+        let hours = Math.floor(time / 3600).toString().padStart(2,'0');
+        let minutes = Math.floor(time % 3600 / 60).toString().padStart(2,'0');
+        let seconds = Math.floor(time % 60).toString().padStart(2,'0');
+        if (hours === '00') {
+        return minutes + ':' + seconds;
+        } else return hours + ':' + minutes + ':' + seconds;
+    }
+    
     return(
         <div className='levelBoardContainer'>{level.title} Leaderboard
             <ul className='leaderList'>
@@ -44,21 +53,21 @@ export default function LevelBoard(props) {
                     <li key={index} className='first'>
                         <Trophy />
                         <p>{user.name}</p>
-                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                        <p>{getTime(user.time)}</p>
                     </li>)
                 } else if (index+1 === 2) { 
                 return (
                     <li key={index} className='second'>
                         <SecondPlace />
                         <p>{user.name}</p>
-                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                        <p>{getTime(user.time)}</p>
                     </li>) 
                 } else if (index+1 === 3) {
                 return (
                     <li key={index} className='third'>
                         <ThirdPlace />
                         <p>{user.name}</p>
-                        <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                        <p>{getTime(user.time)}</p>
                     </li>) 
                 } else if (index === 0 || index === 1 || index === 2) {
                 return null
@@ -66,7 +75,7 @@ export default function LevelBoard(props) {
                 <li key={index} className='users'>
                     <p className='number'>{index+1}.</p>
                     <p>{user.name}</p>
-                   <p>{Math.floor(user.time / 60)}:{(user.time % 60) ? (user.time % 60) : '00'}</p>
+                   <p>{getTime(user.time)}</p>
                 </li>)
                 }
                 )}
