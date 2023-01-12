@@ -43,22 +43,10 @@ function RightGuess(props) {
             setTimeout(() => {setCharFound(false)}, '4000') }
     }, [characters, setCharFound])
       
-const mediaQuery = window.matchMedia('(max-width: 800px)')
-const rightGuessStyle = {
-    // top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 20) : 200}px`,
-    // left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
-}
-const rightGuessStyleMobile = {
-    // top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
-    // left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
-}
-
 return (
     <div className='rightGuessContainer'>
         {(charFound) ? 
-            (<div style={(mediaQuery.matches) ? 
-                (rightGuessStyleMobile) : 
-                (rightGuessStyle)} className="rightGuess">Good Work! You Found {characters}!</div>) : 
+            (<div className="rightGuess">Good Work! You Found {characters}!</div>) : 
                 null}
     </div>
 )
@@ -74,22 +62,11 @@ function WrongGuess(props) {
         }
     }, [guessChar, setGuessChar])
       
-    const mediaQuery = window.matchMedia('(max-width: 800px)')
-    const wrongGuessStyle = {
-        // top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 100) : 20}px`,
-        // left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 500) : 300}px`
-    }
-    const wrongGuessStyleMobile = {
-        // top: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().top + 5) : 220}px`,
-        // left: `${(document.querySelector('.waldoPic')) ? (document.querySelector('.waldoPic').getBoundingClientRect().left + 50) : 100}px`
-    }
-
 return (
     <div className='guessContainer'>
         {(guessChar !== '') ? 
-            (<div style={(mediaQuery.matches) ? 
-                (wrongGuessStyleMobile) : 
-                (wrongGuessStyle)} className="wrongGuess">Sorry! No {guessChar} here!</div>) : 
+            (<div className="wrongGuess">Sorry! No {guessChar === 'the Wizard' ? ('Wizard') :
+                guessChar} here!</div>) : 
                 null}
     </div>
 )

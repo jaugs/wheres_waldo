@@ -1,4 +1,3 @@
-
 .selectionMenu {
     display: flex;
 }
@@ -130,10 +129,11 @@
 
 @media only screen and (max-width: 768px) {
 
-    /* .selectionCircle {
-        width: 50px;
-        height: 50px;
-    } */
+    .wrongGuess, .rightGuess {
+        text-align: center;
+        width:8rem;
+        font-size: 10px;
+    }
 
     .selectionMenu {
         font-size: 13px;
