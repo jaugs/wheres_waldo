@@ -1,12 +1,3 @@
-
-@media only screen and (max-width: 768px) {
-    .header {
-        background-color: green;
-    }
-}
-
-
-
 .header {
     width: 100%;
     height: 5rem;
@@ -73,4 +64,38 @@
 .timerBoxNull {
     width: 5rem;
     height: 3rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .header {
+        width: 100%;
+       height: 4em;
+       justify-content: space-around;
+       box-shadow: rgba(200, 0, 0, 0.99) 2px 1px 3px 0px, rgba(200, 0, 0, 0.99) 2px 1px 2px 0px;   
+       gap: .1rem;
+
+    }
+
+    .titleText {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+    }
+
+    .redText {
+        font-size: 12px;
+    }
+
+    .linkButton {
+        font-size: 12px;
+        padding: .3rem;
+    }
+
+    .timerBox {
+        width: 3.5rem;
+        height: 2rem;
+        font-size: 16px;
+        text-align: center;
+
+    }
 }

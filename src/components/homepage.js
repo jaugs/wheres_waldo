@@ -18,7 +18,8 @@ function Homepage(props) {
                 <p>Choose your Level and find all characters!</p>
                 <p className="red">Complete the game in the fastest time to top the Leaderboard!</p>
             </div>
-            <ul className="characterList">Characters to find:
+            <div className='characterTitle'>Characters to find:
+            <ul className="characterList">
                 <li>
                     <img width={'70rem'} className='characterPic' src={waldo} alt='Waldo'></img>
                     <p className='waldo'>Waldo</p>
@@ -32,6 +33,7 @@ function Homepage(props) {
                     <p className='wizard'>Wizard</p>
                 </li>
             </ul>
+            </div>
             </div>
             <div className="levelContainer">
             {props.levels.map((level) => 

@@ -6,15 +6,27 @@ import '../styles/selectionMenu.css'
 
 function TargetBox(props) {
 
+    const mediaQuery = window.matchMedia('(max-width: 800px)')
+
+    const circleStyleMobile = {
+        width: '50px',
+       height: '50px',
+       position: 'absolute',
+        top: `${props.menuCoords.y - 50 / 2}px`,
+       left: `${props.menuCoords.x - 50 / 2}px`,
+    }
+
     const circleStyle = {
-        width: '100px',
-       height: '100px',
+         width: '100px',
+        height: '100px',
        position: 'absolute',
         top: `${props.menuCoords.y - 100 / 2}px`,
        left: `${props.menuCoords.x - 100 / 2}px`,
     }
+
     return (
-        <div id='guessCircle' className='selectionCircle' style={circleStyle}></div>
+        <div id='guessCircle' className='selectionCircle' style= {mediaQuery.matches ?
+            circleStyleMobile : circleStyle}></div>
     )
 }
 
@@ -131,11 +143,18 @@ function ScoreBox(props) {
 function SelectionMenu(props) {
 
     const {waldoFound, setWaldoFound, wizardFound, setWizardFound, odlawFound, setOdlawFound, setGuessChar, setContextMenu, setCharFound, setCharacters} = props
+    const mediaQuery = window.matchMedia('(max-width: 800px)')
 
     const divStyle = {
         position: 'absolute',
         top: `${props.menuCoords.y - 150 / 4}px`,
         left: `${props.coords.x > 750 ? props.menuCoords.x -240 / 2 + 3 : props.menuCoords.x + 100 / 2 + 3}px`,
+    }
+
+    const divStyleMobile = {
+        position: 'absolute',
+        top: `${props.menuCoords.y - 120 / 4}px`,
+        left: `${props.coords.x > 750 ? props.menuCoords.x - 180 / 2 + 3 : props.menuCoords.x + 60 / 2 + 3}px`,
     }
 
     function handleClick(coordArr, isFound, charString) {
@@ -152,7 +171,8 @@ function SelectionMenu(props) {
     }
  
     return(
-        <div className="selectionMenu" style={divStyle}>
+        <div className="selectionMenu" style={mediaQuery.matches ?
+            divStyleMobile : divStyle}>
             <ul className='charList'>
                 {waldoFound ? 
                     (<li className='foundChar'>Waldo</li>) : 

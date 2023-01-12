@@ -104,3 +104,44 @@
 .third {
     outline: 2px solid #CD7F32;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .leaderBoardContainer h2, .leaderBoardContainer h3 {
+        font-size: 16px;
+    }
+
+    .levelSelect {
+        gap: .9rem;
+        padding: .5rem;
+    }
+
+    .levelLink {
+        font-size: 16px;
+        width: 8rem;
+        text-align: center;
+    }
+
+    .levelBoardContainer {
+        font-size: 16px;
+        padding: .8rem;
+    }
+
+    .leaderList li {
+        font-size: 16px;
+    }
+
+    .first, .second, .third, .users {
+        width: 16rem;
+        height: 4rem;
+    }
+
+    .trophy {
+        width: 2rem;
+    }
+
+    .number {
+        padding-left: .4rem;
+    }
+
+}

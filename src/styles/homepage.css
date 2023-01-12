@@ -38,6 +38,13 @@
     font-weight: 700;
 }
 
+.characterTitle {
+    font-weight: 700;
+    color: blue;
+    text-align: center;
+
+}
+
 .characterList {
     font-weight: 700;
     color: blue;
@@ -90,4 +97,62 @@
 .linkCard {
     text-decoration: none;
     width: 27rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .homeContainer {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .levelContainer {
+        margin: auto;
+        padding: 5px;
+        gap: .5rem;
+    }
+
+    .linkCard, .levelCard {
+        width: 11rem;
+        height: 10rem;
+        font-size: 14px;
+    }
+
+    .levelCard {
+        gap: 8px;
+    }
+
+    .homepagePic {
+        width: 10rem;
+    }
+
+    .directions {
+        font-size: 16px;
+        gap: 15px;
+    }
+
+    .characterList {
+        font-size: 16px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .characterList li {
+        width: 6rem;
+        height: 12rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .characterPic {
+        width: 4rem;
+        height: 9rem;
+    }
+
+    .characterTitle{
+        font-size: 16px;
+    }
 }
